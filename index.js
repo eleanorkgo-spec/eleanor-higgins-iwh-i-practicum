@@ -53,6 +53,36 @@ app.get('/update-cobj', (req, res) => {
     });
 });
 
+// Form submission route - creates a new cookbook in HubSpot
+app.post('/update-cobj', async (req, res) => {
+    const createUrl = `https://api.hubapi.com/crm/v3/objects/${CUSTOM_OBJECT_TYPE}`;
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type': 'application/json'
+    };
+
+    // Get form data
+    const { name, author, cuisine_focus } = req.body;
+
+    // Prepare the data for HubSpot
+    const newCookbook = {
+        properties: {
+            name: name,
+            author: author,
+            cuisine_focus: cuisine_focus
+        }
+    };
+
+    try {
+        await axios.post(createUrl, newCookbook, { headers });
+        // Redirect back to homepage after successful creation
+        res.redirect('/');
+    } catch (error) {
+        console.error('Error creating cookbook:', error.response?.data || error.message);
+        res.status(500).send('Error creating cookbook in HubSpot');
+    }
+});
+
 // Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
