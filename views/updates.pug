@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title Update Custom Object Form | Integrating With HubSpot I Practicum
+    link(rel='stylesheet', href='/css/style.css')
+  body
+    h1 Add a New Cookbook
+    
+    a(href='/') Return to the homepage
+    
+    form(action='/update-cobj', method='POST')
+      div.form-group
+        label(for='name') Book Title:
+        input(type='text', id='name', name='name', required, placeholder='e.g., Made in India')
+      
+      div.form-group
+        label(for='author') Author:
+        input(type='text', id='author', name='author', required, placeholder='e.g., Meera Sodha')
+      
+      div.form-group
+        label(for='cuisine_focus') Cuisine Focus:
+        input(type='text', id='cuisine_focus', name='cuisine_focus', required, placeholder='e.g., Home Cooking')
+        small Suggested: Home Cooking, Vegetarian, Restaurant Style, Quick & Easy
+      
+      button(type='submit') Add Cookbook
