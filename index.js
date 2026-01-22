@@ -46,6 +46,13 @@ app.get('/', async (req, res) => {
     }
 });
 
+// Form page route - displays the form to add a new cookbook
+app.get('/update-cobj', (req, res) => {
+    res.render('updates', { 
+        pageTitle: 'Update Custom Object Form | Integrating With HubSpot I Practicum' 
+    });
+});
+
 // Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
