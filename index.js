@@ -21,7 +21,30 @@ const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
 const CUSTOM_OBJECT_TYPE = '2-197531439';
 
 // Routes will go below...
+// Homepage route - displays all cookbook records
+app.get('/', async (req, res) => {
+    const customObjectsUrl = `https://api.hubapi.com/crm/v3/objects/${CUSTOM_OBJECT_TYPE}`;
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type': 'application/json'
+    };
 
+    try {
+        // Get all records with their properties
+        const response = await axios.get(customObjectsUrl, {
+            headers,
+            params: {
+                properties: 'name,author,cuisine_focus'
+            }
+        });
+
+        const records = response.data.results;
+        res.render('homepage', { records });
+    } catch (error) {
+        console.error('Error fetching cookbooks:', error.response?.data || error.message);
+        res.status(500).send('Error fetching data from HubSpot');
+    }
+});
 
 // Start the server
 const PORT = 3000;
