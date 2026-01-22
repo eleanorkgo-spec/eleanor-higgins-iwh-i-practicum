@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title Indian Cookbooks | Integrating With HubSpot I Practicum
+    link(rel='stylesheet', href='/css/style.css')
+  body
+    h1 Indian Cookery Books
+    
+    a(href='/update-cobj') Add a new cookbook
+    
+    table
+      thead
+        tr
+          th Book Title
+          th Author
+          th Cuisine Focus
+      tbody
+        each record in records
+          tr
+            td= record.properties.name
+            td= record.properties.author
+            td= record.properties.cuisine_focus
